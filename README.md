@@ -1,6 +1,6 @@
 # TaskFlow - To-Do Management System
 
-## 🚀 Internship Project: Task 1
+## 🚀 Project: Task 1
 This is my first project as a Web Development Intern. The task was to build a functional To-Do application using only frontend technologies, focusing on local data persistence and a professional user interface.
 
 ## 💡 Key Features
