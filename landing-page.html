@@ -1,0 +1,507 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Professional To-Do List Management</title>
+    <link rel="stylesheet" href="landing-styles.css">
+    <style>
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-10px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(10px);
+            }
+        }
+    </style>
+    <style>
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .toast-notification {
+                bottom: 1rem !important;
+                right: 1rem !important;
+                left: 1rem !important;
+                width: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body cz-shortcut-listen="true" data-new-gr-c-s-check-loaded="14.1280.0" data-gr-ext-installed="">
+    <!-- Welcome Overlay -->
+    <!-- <div id="welcomeOverlay" class="overlay hidden">
+        <div class="overlay-content">
+            <h2 class="overlay-title">Welcome to TaskFlow</h2>
+            <p class="overlay-subtitle">Please enter your credentials to continue</p>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required=""
+                        fdprocessedid="ptanpp">
+                </div>
+                <div class="form-group">
+                    <label for="pin">PIN</label>
+                    <input type="password" id="pin" name="pin" placeholder="Enter your PIN" maxlength="4" required=""
+                        fdprocessedid="992adm">
+                </div>
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+                <button type="submit" class="btn-primary" fdprocessedid="2okm2y">Access TaskFlow</button>
+            </form>
+            <p class="demo-hint">Demo credentials: Username: <strong>demo</strong> | PIN: <strong>1234</strong></p>
+        </div>
+    </div> -->
+
+    <!-- Navigation Header -->
+    <header class="nav-header">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="32" height="32" rx="8" fill="#8FEC78"></rect>
+                    <path d="M9 16L14 21L23 11" stroke="white" stroke-width="3" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+                <span class="logo-text">TaskFlow</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+            </nav>
+            <a class="btn-primary btn-nav" onclick="goToApp()" fdprocessedid="15hqoh" href="index.html">Get Started</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">Organize Your Work, Amplify Your Productivity</h1>
+            <p class="hero-subtitle">TaskFlow helps professionals manage tasks efficiently with intelligent
+                prioritization and seamless collaboration.</p>
+            <div class="hero-cta">
+                <button class="btn-primary btn-large" fdprocessedid="u6zi8">Start Free Trial</button>
+                <button class="btn-secondary btn-large" fdprocessedid="zg4sjb">Watch Demo</button>
+            </div>
+            <p class="hero-trust">Trusted by over 50,000+ professionals worldwide</p>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="heading-2">Everything You Need to Stay Organized</h2>
+                <p class="body-large">Powerful features designed for professional task management</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="24" fill="rgba(148, 242, 127, 0.1)"></circle>
+                            <path d="M15 24L21 30L33 18" stroke="#8FEC78" stroke-width="3" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+                    <h3 class="heading-3">Smart Task Management</h3>
+                    <p class="body-medium">Create, organize, and prioritize tasks with intelligent categorization and
+                        tagging.</p>
+                </div>
+                <div class="feature-card"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="24" fill="rgba(148, 242, 127, 0.1)"></circle>
+                            <path d="M16 16H32M16 24H32M16 32H24" stroke="#8FEC78" stroke-width="3"
+                                stroke-linecap="round"></path>
+                        </svg>
+                    </div>
+                    <h3 class="heading-3">Deadline Tracking</h3>
+                    <p class="body-medium">Never miss a deadline with smart reminders and calendar integration.</p>
+                </div>
+                <div class="feature-card"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="24" fill="rgba(148, 242, 127, 0.1)"></circle>
+                            <circle cx="18" cy="24" r="4" stroke="#8FEC78" stroke-width="2"></circle>
+                            <circle cx="30" cy="24" r="4" stroke="#8FEC78" stroke-width="2"></circle>
+                            <path d="M22 24H26" stroke="#8FEC78" stroke-width="2"></path>
+                        </svg>
+                    </div>
+                    <h3 class="heading-3">Team Collaboration</h3>
+                    <p class="body-medium">Share tasks, delegate work, and collaborate seamlessly with your team.</p>
+                </div>
+                <div class="feature-card"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="24" fill="rgba(148, 242, 127, 0.1)"></circle>
+                            <rect x="14" y="14" width="20" height="20" rx="2" stroke="#8FEC78" stroke-width="2"></rect>
+                            <path d="M14 20H34" stroke="#8FEC78" stroke-width="2"></path>
+                        </svg>
+                    </div>
+                    <h3 class="heading-3">Multiple Views</h3>
+                    <p class="body-medium">Switch between list, board, and calendar views to match your workflow.</p>
+                </div>
+                <div class="feature-card"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="24" fill="rgba(148, 242, 127, 0.1)"></circle>
+                            <path d="M24 14V24L30 27" stroke="#8FEC78" stroke-width="3" stroke-linecap="round"></path>
+                            <circle cx="24" cy="24" r="10" stroke="#8FEC78" stroke-width="2"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="heading-3">Time Tracking</h3>
+                    <p class="body-medium">Track time spent on tasks and analyze your productivity patterns.</p>
+                </div>
+                <div class="feature-card"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="feature-icon">
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                            <circle cx="24" cy="24" r="24" fill="rgba(148, 242, 127, 0.1)"></circle>
+                            <path d="M20 18L28 24L20 30V18Z" stroke="#8FEC78" stroke-width="2" stroke-linejoin="round">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="heading-3">Mobile Access</h3>
+                    <p class="body-medium">Access your tasks anywhere with our responsive web app and mobile apps.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="heading-2">How TaskFlow Works</h2>
+                <p class="body-large">Get started in three simple steps</p>
+            </div>
+            <div class="steps-container">
+                <div class="step-item"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="step-number">1</div>
+                    <h3 class="heading-3">Create Your Account</h3>
+                    <p class="body-medium">Sign up in seconds and set up your personalized workspace.</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-item"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="step-number">2</div>
+                    <h3 class="heading-3">Add Your Tasks</h3>
+                    <p class="body-medium">Start adding tasks, set priorities, and organize with projects.</p>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step-item"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="step-number">3</div>
+                    <h3 class="heading-3">Get Things Done</h3>
+                    <p class="body-medium">Track progress, collaborate with team, and achieve your goals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="heading-2">What Our Users Say</h2>
+                <p class="body-large">Join thousands of satisfied professionals</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"TaskFlow transformed how our team manages projects. The collaboration
+                        features are outstanding!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SM</div>
+                        <div>
+                            <p class="author-name">Sarah Martinez</p>
+                            <p class="author-role">Product Manager</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"Finally, a to-do app that matches my workflow. Clean, fast, and
+                        incredibly intuitive."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JC</div>
+                        <div>
+                            <p class="author-name">James Chen</p>
+                            <p class="author-role">Software Engineer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"The time tracking feature helped me identify productivity bottlenecks.
+                        Game changer!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">EP</div>
+                        <div>
+                            <p class="author-name">Emily Parker</p>
+                            <p class="author-role">Freelance Designer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="heading-2">Simple, Transparent Pricing</h2>
+                <p class="body-large">Choose the plan that fits your needs</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <h3 class="pricing-tier">Free</h3>
+                    <div class="pricing-price">
+                        <span class="price-amount">$0</span>
+                        <span class="price-period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Up to 50 tasks</li>
+                        <li>✓ Basic task management</li>
+                        <li>✓ Mobile access</li>
+                        <li>✓ Email support</li>
+                    </ul>
+                    <button class="btn-secondary btn-pricing" fdprocessedid="esk9c8">Get Started</button>
+                </div>
+                <div class="pricing-card pricing-card-featured"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <div class="featured-badge">Most Popular</div>
+                    <h3 class="pricing-tier">Professional</h3>
+                    <div class="pricing-price">
+                        <span class="price-amount">$12</span>
+                        <span class="price-period">/month</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Unlimited tasks</li>
+                        <li>✓ Team collaboration</li>
+                        <li>✓ All view types</li>
+                        <li>✓ Time tracking</li>
+                        <li>✓ Priority support</li>
+                        <li>✓ Advanced reporting</li>
+                    </ul>
+                    <button class="btn-primary btn-pricing" fdprocessedid="fkq3ub">Start Free Trial</button>
+                </div>
+                <div class="pricing-card"
+                    style="opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s;">
+                    <h3 class="pricing-tier">Enterprise</h3>
+                    <div class="pricing-price">
+                        <span class="price-amount">Custom</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>✓ Everything in Professional</li>
+                        <li>✓ Unlimited team members</li>
+                        <li>✓ Advanced security</li>
+                        <li>✓ Custom integrations</li>
+                        <li>✓ Dedicated support</li>
+                        <li>✓ SLA guarantee</li>
+                    </ul>
+                    <button class="btn-secondary btn-pricing" fdprocessedid="91krmq">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="heading-2">Frequently Asked Questions</h2>
+                <p class="body-large">Everything you need to know about TaskFlow</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question" fdprocessedid="2ezf7a">
+                        <span>Is TaskFlow free to use?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! We offer a free plan that includes up to 50 tasks and basic task management features.
+                            You can upgrade to Professional or Enterprise plans for advanced features and unlimited
+                            tasks.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" fdprocessedid="7ci1it">
+                        <span>Can I use TaskFlow on my mobile device?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely! TaskFlow is fully responsive and works seamlessly on all devices including
+                            smartphones and tablets. We also offer native mobile apps for iOS and Android.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" fdprocessedid="qx26if">
+                        <span>How does team collaboration work?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>With Professional and Enterprise plans, you can invite team members, assign tasks, share
+                            projects, and collaborate in real-time. Everyone stays synced automatically.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" fdprocessedid="swrk7j">
+                        <span>Is my data secure?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Security is our top priority. We use industry-standard encryption, secure data centers, and
+                            regular backups. Enterprise plans include additional security features and compliance
+                            certifications.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" fdprocessedid="zi8aoo">
+                        <span>Can I cancel my subscription anytime?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, you can cancel your subscription at any time. There are no long-term contracts or
+                            cancellation fees. Your data will remain accessible even after downgrading to the free plan.
+                        </p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" fdprocessedid="vwqhg">
+                        <span>Do you offer discounts for annual plans?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes! Annual subscribers get 2 months free (equivalent to 17% discount). Contact our sales
+                            team for special pricing on Enterprise plans.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="footer-logo">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect width="32" height="32" rx="8" fill="#8FEC78"></rect>
+                            <path d="M9 16L14 21L23 11" stroke="white" stroke-width="3" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </svg>
+                        <span class="logo-text">TaskFlow</span>
+                    </div>
+                    <p class="footer-description">Professional task management for modern teams.</p>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-heading">Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#">Integrations</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-heading">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-heading">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-heading">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Security</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2024 TaskFlow. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Twitter">Twitter</a>
+                    <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                    <a href="#" aria-label="GitHub">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="landing-script.js"></script>
+    <script defer=""
+        src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516"
+        integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg=="
+        data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;7f7b0fd8732c4326aae4b9d58d5c514a&quot;,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}"
+        crossorigin="anonymous"></script>
+
+
+    <span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span>
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
+
+</html>

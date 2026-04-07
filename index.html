@@ -1,0 +1,279 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Your Personal To-Do List</title>
+    <link rel="stylesheet" href="todo-styles.css">
+    <style>
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body cz-shortcut-listen="true" data-new-gr-c-s-check-loaded="14.1280.0" data-gr-ext-installed="">
+    <!-- Welcome Overlay -->
+    <div id="welcomeOverlay" class="overlay ">
+        <div class="overlay-content">
+            <div class="overlay-logo">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                    <rect width="48" height="48" rx="12" fill="#8FEC78"></rect>
+                    <path d="M14 24L21 31L34 17" stroke="white" stroke-width="4" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+            </div>
+            <h2 class="overlay-title">Welcome to TaskFlow</h2>
+            <p class="overlay-subtitle">Please enter your credentials to continue</p>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required=""
+                        fdprocessedid="qy50cb">
+                </div>
+                <div class="form-group">
+                    <label for="pin">PIN</label>
+                    <input type="password" id="pin" name="pin" placeholder="Enter your PIN" maxlength="4" required=""
+                        fdprocessedid="du05ah">
+                </div>
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+                <button type="submit" class="btn-primary" fdprocessedid="tv2lpb">Access TaskFlow</button>
+            </form>
+            <p class="demo-hint">Demo credentials: Username: <strong>demo</strong> | PIN: <strong>1234</strong></p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="appContainer" class="app-container hidden">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <rect width="32" height="32" rx="8" fill="#8FEC78"></rect>
+                        <path d="M9 16L14 21L23 11" stroke="white" stroke-width="3" stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                    </svg>
+                    <h1 class="app-title">TaskFlow</h1>
+                </div>
+                <div class="header-right">
+                    <span class="user-info" id="userInfo">Welcome, user</span>
+                    <button class="btn-secondary btn-small" id="logoutBtn" fdprocessedid="hk2svf">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <!-- Add Task Section -->
+                <section class="add-task-section">
+                    <h2 class="section-title">Add New Task</h2>
+                    <form id="taskForm" class="task-form">
+                        <div class="form-row">
+                            <div class="form-group flex-2">
+                                <label for="taskName">Task Name</label>
+                                <input type="text" id="taskName" placeholder="Enter task name..." required=""
+                                    fdprocessedid="n80c8">
+                            </div>
+                            <div class="form-group flex-1">
+                                <label for="taskFrequency">Frequency</label>
+                                <select id="taskFrequency" required="" fdprocessedid="5yxd1r">
+                                    <option value="daily">Daily</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group flex-1">
+                                <label for="taskPriority">Priority</label>
+                                <select id="taskPriority" required="" fdprocessedid="ktz4t">
+                                    <option value="low">Low</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </div>
+                            <div class="form-group flex-1">
+                                <label for="taskCategory">Category</label>
+                                <input type="text" id="taskCategory" placeholder="e.g., Work, Personal, Health"
+                                    fdprocessedid="umnnw">
+                            </div>
+                            <div class="form-group flex-1">
+                                <label for="taskDueDate">Due Date</label>
+                                <input type="date" id="taskDueDate">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary" id="addTaskBtn" fdprocessedid="6rglc">
+                            <span id="addTaskBtnText">Add Task</span>
+                        </button>
+                        <button type="button" class="btn-secondary" id="cancelEditBtn"
+                            style="display: none;">Cancel</button>
+                    </form>
+                </section>
+
+                <!-- Filter Section -->
+                <section class="filter-section">
+                    <h2 class="section-title">Filter Tasks</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all" fdprocessedid="b359i">All Tasks</button>
+                        <button class="filter-btn" data-filter="daily" fdprocessedid="a4qnn7">Daily</button>
+                        <button class="filter-btn" data-filter="weekly" fdprocessedid="mhl583">Weekly</button>
+                        <button class="filter-btn" data-filter="monthly" fdprocessedid="oyr2sc">Monthly</button>
+                        <button class="filter-btn" data-filter="completed" fdprocessedid="cs7wzb">Completed</button>
+                        <button class="filter-btn" data-filter="pending" fdprocessedid="7uzng">Pending</button>
+                    </div>
+                    <div class="filter-options">
+                        <select id="priorityFilter" class="filter-select" fdprocessedid="kceu6i">
+                            <option value="all">All Priorities</option>
+                            <option value="high">High Priority</option>
+                            <option value="medium">Medium Priority</option>
+                            <option value="low">Low Priority</option>
+                        </select>
+                        <select id="categoryFilter" class="filter-select" fdprocessedid="7gzexj">
+                            <option value="all">All Categories</option>
+                            <option value="Health">Health</option>
+                        </select>
+                        <button class="btn-secondary btn-small" id="clearFiltersBtn" fdprocessedid="fveqln">Clear
+                            Filters</button>
+                    </div>
+                </section>
+
+                <!-- Tasks Stats -->
+                <section class="stats-section">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalTasks">1</div>
+                        <div class="stat-label">Total Tasks</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="completedTasks">1</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pendingTasks">0</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="overdueTasks">0</div>
+                        <div class="stat-label">Overdue</div>
+                    </div>
+                </section>
+
+                <!-- Tasks List Section -->
+                <section class="tasks-section">
+                    <div class="section-header-row">
+                        <h2 class="section-title">Your Tasks</h2>
+                        <button class="btn-secondary btn-small" id="clearCompletedBtn" fdprocessedid="ewp7mp">Clear
+                            Completed</button>
+                    </div>
+                    <div id="tasksContainer" class="tasks-container">
+                        <div class="task-item completed"><input type="checkbox" class="task-checkbox">
+                            <div class="task-content">
+                                <div class="task-header">
+                                    <div class="task-name">Drink water</div>
+                                    <div class="task-actions"><button class="task-btn task-btn-edit"
+                                            fdprocessedid="ftfc1k">Edit</button><button class="task-btn task-btn-delete"
+                                            fdprocessedid="u8htvq">Delete</button></div>
+                                </div>
+                                <div class="task-meta"><span class="task-badge badge-frequency">daily</span><span
+                                        class="task-badge badge-priority medium">medium</span><span
+                                        class="task-badge badge-category">Health</span><span class="task-due">📅 Due:
+                                        Apr 6, 2026</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="emptyState" class="empty-state" style="display: none;">
+                        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                            <circle cx="32" cy="32" r="32" fill="rgba(148, 242, 127, 0.1)"></circle>
+                            <path d="M20 32L28 40L44 24" stroke="#8FEC78" stroke-width="4" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </svg>
+                        <p class="empty-state-text">No tasks found. Add your first task to get started!</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>© 2024 TaskFlow. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div id="editModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Task</h3>
+                <button class="modal-close" id="closeModalBtn" fdprocessedid="s4h6jh">×</button>
+            </div>
+            <form id="editTaskForm">
+                <div class="form-group">
+                    <label for="editTaskName">Task Name</label>
+                    <input type="text" id="editTaskName" required="" fdprocessedid="4ai26">
+                </div>
+                <div class="form-group">
+                    <label for="editTaskFrequency">Frequency</label>
+                    <select id="editTaskFrequency" required="" fdprocessedid="lztk6c">
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editTaskPriority">Priority</label>
+                    <select id="editTaskPriority" required="" fdprocessedid="0pke5">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editTaskCategory">Category</label>
+                    <input type="text" id="editTaskCategory" fdprocessedid="cpq7h7">
+                </div>
+                <div class="form-group">
+                    <label for="editTaskDueDate">Due Date</label>
+                    <input type="date" id="editTaskDueDate">
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary" fdprocessedid="lzddrk">Save Changes</button>
+                    <button type="button" class="btn-secondary" id="cancelModalBtn"
+                        fdprocessedid="xovtrj">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="todo-script.js"></script>
+    <!-- <script defer=""
+        src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516"
+        integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg=="
+        data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;7f7b0fd8732c4326aae4b9d58d5c514a&quot;,&quot;server_timing&quot;:{&quot;name&quot;:{&quot;cfCacheStatus&quot;:true,&quot;cfEdge&quot;:true,&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfSpeedBrain&quot;:true},&quot;location_startswith&quot;:null}}"
+        crossorigin="anonymous"></script> -->
+
+
+    <span id="PING_IFRAME_FORM_DETECTION" style="display: none;"></span>
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
+
+</html>
